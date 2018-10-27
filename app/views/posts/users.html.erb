@@ -1,0 +1,7 @@
+<h2>ユーザーの投稿</h2>
+
+<ul>
+<% @user.posts.each do |post| %>
+    <li><%= post.content %></li>
+<% end %>
+</ul>
