@@ -1,4 +1,7 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
+  #authenticate_user!の機能は、deviseの機能。railsオリジナルの機能ではない。
+
   def create
     #保存
     @comment = Comment.new(comment_params)

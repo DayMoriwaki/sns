@@ -1,12 +1,21 @@
-<h1>トップページ</h1>
-<% if user_signed_in? %>
-<%= link_to 'LOGOUT', destroy_user_session_path, method: :delete %>
-<% else %>
-<%= link_to 'LOGIN', new_user_session_path %>
-<% end %>
-
-<br>
-# Linkの書き方には、様々な書き方がある。
-# <%= link_to '投稿一覧', "/posts" %>でも可能。
-<br>
-<%= link_to '投稿一覧', posts_path %>
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-mid-4">
+        <h1>トップページ</h1>
+    </div>
+    <div class="col-12 col-mid-4">    
+        <% if user_signed_in? %>
+        <%= link_to 'LOGOUT', destroy_user_session_path, method: :delete %>
+        <% else %>
+        <%= link_to 'LOGIN', new_user_session_path %>
+        <% end %>
+    </div>
+    <div class="col-12 col-mid-4">  
+        <br>
+        # Linkの書き方には、様々な書き方がある。
+        # <%= link_to '投稿一覧', "/posts" %>でも可能。
+        <br>
+    </div>
+    </div>
+  </div>
+</div>

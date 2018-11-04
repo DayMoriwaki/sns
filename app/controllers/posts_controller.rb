@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index ,:show]
+  #exceptのものだけ許可するという
 
   # GET /posts
   # GET /posts.json
@@ -26,10 +28,10 @@ class PostsController < ApplicationController
   # GET /posts/new
   def new
     # deviseのライブラリの機能により、current userと書くと、ログインしているユーザーIDが表示される。
-    if not user_signed_in?
-      redirect_to new_user_session_path
-      return
-    end
+    # if not user_signed_in?
+    #   redirect_to new_user_session_path
+    #   return
+    # end
 
     puts "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
     pp current_user
@@ -45,6 +47,7 @@ class PostsController < ApplicationController
   # POST /posts.json
   def create
     @post = Post.new(post_params)
+    @post.user_id = current_user.id
 
     respond_to do |format|
       if @post.save
@@ -89,6 +92,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:user_id, :content, :post_date, :like_count)
+      params.require(:post).permit(:content, :post_date, :like_count)
     end
 end

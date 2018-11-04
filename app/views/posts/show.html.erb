@@ -1,3 +1,14 @@
+<div class="container">
+  <div class="row">
+   <div class="col-12">
+
+    <h2>投稿詳細</h2>
+   </div>
+  </div>
+
+<div class="row">
+<div class="col-12">
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -24,7 +35,11 @@
 <%= link_to 'Back', posts_path %>
 
 <% @post.comments.each do |comment| %>
-  <%= comment.content %><br><br>
+  <div class="card">
+  <div class="card-body">
+  <%= comment.content %>
+  </div>
+  </div>
 <% end %>
 
 <%= form_with(model: [@post,@comment], local: true) do |form| %>
@@ -37,3 +52,7 @@
   </div>
 
 <% end %>
+
+</div>
+</div>
+</div>
