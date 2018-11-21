@@ -1,3 +1,38 @@
+<script>
+$(function(){
+            // Ajax button click
+            $('#like_button').on('click',function(){
+                $.ajax({
+                    url:'/posts/<%= @post.id %>/like_ajax',
+                    type:'GET'
+                    // data:{
+                    //     'userid':$('#userid').val(),
+                    //     'passward':$('#passward').val()
+                    // }
+                })
+                //レスポンスが帰ってくる。
+                // Ajaxリクエストが成功した時発動
+                .done( (data) => {
+                    //$('.result').html(data);
+                    console.log(data);
+
+                    $('#like_count').text(data["count"])
+                })
+                // Ajaxリクエストが失敗した時発動
+                .fail( (data) => {
+                    $('.result').html(data);
+                    console.log(data);
+                    $('#like_count').text("200")
+                })
+                // Ajaxリクエストが成功・失敗どちらでも発動
+                .always( (data) => {
+
+                });
+            });
+        });
+</script>
+
+
 <div class="container">
   <div class="row">
    <div class="col-12">
@@ -28,7 +63,13 @@
 
 <p>
   <strong>Like count:</strong>
+  <div id="like_count">
   <%= @post.like_count %>
+  </div>
+
+  <%= link_to 'いいね！', "/posts/#{@post.id}/like" %>
+
+  <div id="like_button">いいね Ajax</div>
 </p>
 
 <%= link_to 'Edit', edit_post_path(@post) %> |

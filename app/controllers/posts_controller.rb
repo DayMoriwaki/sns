@@ -1,12 +1,38 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:show, :edit, :update, :destroy, :like, :like_ajax]
   before_action :authenticate_user!, except: [:index ,:show]
   #exceptのものだけ許可するという
+
+  def like
+    # @post = Post.find(params[:id])
+    if @post.like_count.nil?
+      @post.like_count = 0
+    end
+
+    @post.like_count = @post.like_count + 1
+    @post.save
+
+    @comment = Comment.new
+
+    render :show
+  end
+
+  def like_ajax
+    if @post.like_count.nil?
+      @post.like_count = 0
+    end
+
+    @post.like_count = @post.like_count + 1
+    @post.save
+
+    render json: { "count": @post.like_count }
+  end
 
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all
+    # Postクラスは、modelsのpost.rb
   end
 
   # GET /posts/1
